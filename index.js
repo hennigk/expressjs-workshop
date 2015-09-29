@@ -44,15 +44,12 @@ app.get('/', function (req, res) {
 });
 
 app.get('/entry/:entryId', function (req, res) {
-  var entry = Number(req.params.entryId)
-  if (isNaN(entry)) {
-    res.status(404).send("Error 404: invalid entry number");
-  }
-  else if ((entry > count) || (entry < 1) ){
-    res.status(404).send("Error: Enter a number between 1 and " + count);
+  var entry = Number(req.params.entryId);
+  if (entries[entry]) {
+    res.json(entries[entry]);
   }
   else {
-    res.json(entries[entry]);
+    res.status(404).send("Error 404: invalid entry number");
   }
 });
 
