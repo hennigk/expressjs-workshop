@@ -2,10 +2,36 @@ var express = require('express');
 var app = express();
 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.send('Server is working');
 });
 
+function doOperation(operator, number1, number2){
+    switch (operator.toLowerCase()) {
+    case 'add':
+      return number1 + number2; 
+    case 'sub':
+      return number1 - number2; 
+    case 'mult':
+      return number1 * number2; 
+    case 'div':
+      return Math.round(number1 / number2); 
+    default:
+      return 
+  }
+}
 
+app.get('/op/:operator/:num1/:num2', function (req, res) {
+  var number1 = Number(req.params.num1);
+  var number2 = Number(req.params.num2);
+  var operator = (req.params.operator).toString();
+  var answer = doOperation(operator, number1, number2);
+  if (!isNaN(answer)) {
+    res.sendStatus(answer);
+  }
+  if (isNaN(number1) || isNaN(number2) || isNaN(answer)) {
+    res.status(404).send("Error 404");
+  }
+});
 
 
 
