@@ -47,15 +47,10 @@ app.get('/', function (req, res) {
 });
 
 app.post('/entry/', function (req, res) {
-  console.log(req.body)
-  var count = 0;
-    for (var key in entries) {
-      count +=1;
-    }
+  var count = Object.keys(entries).length;
     var position = count + 1;
   entries[position] = (req.body);
-  console.log(entries)
- res.send('Got a POST request');
+ res.send("New Entry!  entry id=" + position + " " + JSON.stringify(req.body));
 });
 
 app.get('/entry/search/', function(req, res){
